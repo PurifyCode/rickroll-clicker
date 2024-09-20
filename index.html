@@ -1,0 +1,199 @@
+<head>
+    <title>Rickroll Clicker</title>
+</head>
+
+<body id="container" class="container">
+    <div class="changeName" id="changeName" style="display: none;">
+        <input id="name" type="text" placeholder="Change Name...">
+    </div>
+    <button onclick="changeName()">
+        Change Name
+    </button>
+    <h1 id="message">Nobody sees your rickrolls, because there aren't enough.</h1>
+    <h2 id="nameText">Owner Name: Not set!</h2>
+    <img src="background.gif" id="rickroll" class="rickroll">
+    <h1 id="rickrolls">0 rickrolls</h1>
+    <div src="upgrades.png" id="multiplierImg" class="multiplierImg">
+        <h1 id="multiplier">Multiplier: NaN</h1>
+    </div>
+</body>
+
+<script>
+    let rickroll = document.getElementById("rickroll")
+    let rickrollDisp = document.getElementById("rickrolls")
+    let multiplierImg = document.getElementById("multiplierImg")
+    let multiplier = document.getElementById("multiplier")
+    let msg = document.getElementById("message")
+    let nameText = document.getElementById("nameText")
+    let changeNameTxt = document.getElementById("name")
+    let multiplierVal = 1
+    let changingName = false
+    let cheats = false
+    let rickrolls = 0
+    let shutdowns = 0
+    multiplier.innerText = "Multiplier: " + multiplierVal.toString()
+
+    function changeName() {
+        if (changingName == false)
+        {
+            document.getElementById("changeName").style = "display:block;"
+            changingName = true
+        } else {
+            if (changingName == true) {
+                nameText.innerHTML = "Owner Name: " + changeNameTxt.value
+                if (changeNameTxt.value == "egg") {
+                    rickroll.src = "the_rock.png"
+                    msg.innerText = "egman"
+                }
+                if (changeNameTxt.value == "cheater") {
+                    cheats = true
+                    multiplierVal = 100000000
+                    multiplier.innerText = "Multiplier: " + multiplierVal
+                    rickroll.src = "the_rock.png"
+                    msg.innerText = "what a cheater :("
+                }
+                changeNameTxt.value = ""
+                document.getElementById("changeName").style = "display:none;"
+                changingName = false
+            }
+        }
+    }
+
+    function toggleClicked() {
+        rickroll.classList.toggle("clicked")
+    }
+
+    rickroll.onclick = function()
+    {
+
+        toggleClicked()
+        setTimeout(toggleClicked, 100)
+
+        if (shutdowns == 0)
+        {
+            rickrolls += multiplierVal
+            rickrollDisp.innerText = rickrolls.toString() + " rickrolls"
+        } else {
+            rickrolls += multiplierVal
+            rickrollDisp.innerHTML = rickrolls.toString() + " stone rickrolls"
+        }
+        if (rickrolls >= 100 && shutdowns == 0)
+        {
+            msg.innerText = "People started looking at Google images, and your rickrolls filled the internet with anger."
+        } else {
+            if (rickrolls >= 100 && shutdowns == 1)
+            {
+                msg.innerText = "You and your friends in prison are selling carved rickroll rocks to others for more rocks."
+            }
+        }
+        if (rickrolls >= 300 && shutdowns == 0)
+        {
+            msg.innerText = "The internet is raging mad, and grandmas are enjoying their favorite song on the internet."
+        } else {
+            if (rickrolls >= 300 && shutdowns == 1)
+            {
+                msg.innerText = "All of the prisoners started rickrolling cops by sliding them the rocks."
+            }
+        }
+        if (rickrolls >= 1000 && shutdowns == 0)
+        {
+            msg.innerText = "The FBI is searching for you. This is getting out of hand. I don't know anymore. Get a job."
+        } else {
+            if (rickrolls >= 1000 && shutdowns == 1)
+            {
+                msg.innerText = "The rickrolling got so excessive that the prisoners started fighting with the rocks, and throwing them at officers."
+            }
+        }
+        if (rickrolls >= 10000 && shutdowns == 0)
+        {
+            msg.innerText = "You turned your rickrolls into ads, and now you're so rich from ads that you bought a mansion, and purchased 1000 bags of chips while the FBI hunts you."
+        } else {
+            if (rickrolls >= 10000 && shutdowns == 1)
+            {
+                msg.innerText = "The prisoners finally broke their cells and badly injured the warden with the rocks."
+            }
+        }
+        if (rickrolls >= 100000 && shutdowns == 0)
+        {
+            msg.innerText = "The FBI located you, but then they couldn't arrest you because rickrolling wasn't a crime."
+        } else {
+            if (rickrolls >= 100000 && shutdowns == 1)
+            {
+                msg.innerText = "You broke out of prison. You're an outlaw now."
+            }
+        }
+        if (rickrolls >= 130000 && shutdowns == 0)
+        {
+            msg.innerText = 'WORLDWIDE NEWS: "The internet will be shut down because there are too many rickrolls."'
+        }
+        if (rickrolls >= 200000 && shutdowns == 0)
+        {
+            msg.innerText = "The internet has been shutdown, so you started making rickroll flipbooks and selling them at book stores."
+        }
+        if (rickrolls >= 300000 && shutdowns == 0)
+        {
+            msg.innerText = 'WORLDWIDE NEWS: "All bookstores are now illegal, because there are too many rickrolls". You start spray painting rickroll animations onto trains, but you know its illegal.'
+        }
+        if (rickrolls >= 330000 && shutdowns == 0)
+        {
+            msg.innerText = "The FBI locates you, and you're in jail. All your rickrolls got shut down, and you've lost everything except for your multiplier. You start gathering stones and carving rickrolls on them, though."
+            shutdowns += 1
+            rickrolls = 0
+            rickrollDisp.innerText = "0 stone rickrolls"
+        }
+    }
+    multiplierImg.onclick = function()
+    {
+        toggleClicked(multiplierImg)
+        setTimeout(toggleClicked(multiplierImg), 100)
+
+        if (rickrolls >= 10 * multiplierVal)
+        {
+            rickrolls -= 10 * multiplierVal
+            rickrollDisp.innerText = rickrolls.toString() + " rickrolls"
+            multiplierVal += 1
+            multiplier.innerText = "Multiplier: " + multiplierVal.toString()
+        }
+        else {
+            msg.innerText = "You do not have enough rickrolls! You need " + 10 * multiplierVal + "."
+        }   
+    }
+</script>
+
+<style>
+
+    html body {
+        background-image: url(background.png);
+    }
+
+    #rickroll {
+        text-align: center;
+        transition: 1s;
+        border-radius: 10px;
+    }
+
+    #container {
+        text-align: center;
+        font-size: small;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    #multiplierImg {
+        background-color: green;
+        border-radius: 10px;
+        transition: 1s;
+    }
+     .rickroll:hover {
+        transform: scale(1.1, 1.1)
+    }
+    .clicked {
+        scale: 0.7;
+    }
+
+    .multiplierImg:hover {
+        transform: scale(0.97);
+    }
+
+    #multiplier {
+        font-family:'Courier New', Courier, monospace;
+    }
+</style>
